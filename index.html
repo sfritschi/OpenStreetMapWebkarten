@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de-de">
+<head>
+<title>Map | Testanwendung</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type" content="text/css" />
+<meta http-equiv="content-language" content="en" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+<link rel="stylesheet" type="text/css" href="map.css"></link>
+<link href='https://api.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.css' rel='stylesheet' />
+<!--[if IE]>
+<link rel="stylesheet" type="text/css" href="ie_map.css"></link>
+<![endif]-->
+<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+<script type="text/javascript" src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>
+<script src='https://api.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.js'></script>
+<script src='https://api.mapbox.com/mapbox.js/v3.0.1/mapbox.js'></script>
+
+<div id="mapid"></div>
+ 
+<script type="text/javascript">
+	/* Mapbox
+	mapboxgl.accessToken = 'pk.eyJ1Ijoic2ZyaXRzY2hpIiwiYSI6ImNqMTZpZHd4ZjAyZHQzMm16OHNmNzF5dHgifQ.mxPUN0DeXnRu85ly5fBq8g';
+	var map = new mapboxgl.Map({
+	container: 'mapid',
+	style: 'mapbox://styles/mapbox/streets-v9'
+	});
+	*/
+	L.mapbox.accessToken = 'pk.eyJ1Ijoic2ZyaXRzY2hpIiwiYSI6ImNqMTZpZHd4ZjAyZHQzMm16OHNmNzF5dHgifQ.mxPUN0DeXnRu85ly5fBq8g';
+	
+	var map = L.mapbox.map('mapid', 'mapbox.streets')
+		.setView([47.22320, 8.81744], 19)
+</script>
