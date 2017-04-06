@@ -31,4 +31,15 @@
 	
 	var map = L.mapbox.map('mapid', 'mapbox.streets')
 		.setView([47.22320, 8.81744], 19)
+		
+	var marker = L.marker([47.22234, 8.81727]).addTo(map);
+	var polygon = L.polygon([
+    [47.22352, 8.81874],
+    [47.22328, 8.81824],
+    [47.22296, 8.81859],
+	[47.22325, 8.81912]
+	]).addTo(map);
+	
+	marker.bindPopup("<b>Fäschtinseli</b>").openPopup();
+	polygon.bindPopup("<b>Gebäude 8</b><br>:\)").openPopup();
 </script>
