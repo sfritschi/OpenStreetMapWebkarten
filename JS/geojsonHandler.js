@@ -1,5 +1,4 @@
-var loadGeojson = function(mapObject, path) {
-
+var loadGeojson = function(mapObject, path) {	
 	var geoJson = new L.geoJson();
 		geoJson.addTo(mapObject);
 

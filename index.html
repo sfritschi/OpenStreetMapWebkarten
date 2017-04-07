@@ -49,18 +49,18 @@
 	
 	var trainStationPath = "GeoJSON/trainStation.geojson";
 	
-	function onMapClick(e) {
-	popup
-		.setLatLng(e.latlng)
-		.setContent("You clicked the map at: " + e.latlng.toString())
-		.openOn(map);
+	function onClick(e) {
+	map
+		.setView(e.latlng);
 	}
 	
 	marker.bindPopup("<b>Fäschtinseli</b>").openPopup();
 	polygon.bindPopup("<b>Gebäude 8</b>").openPopup();
 	circle.bindPopup("<b>Heilig Hüsli</b><br>...").openPopup();
 	
-	map.on('click', onMapClick);
+	marker.on('click', onClick);
+	polygon.on('click', onClick);
+	circle.on('click', onClick);
 	
 	loadGeojson(map, trainStationPath);
 </script>
