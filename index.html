@@ -16,6 +16,9 @@
 <script type="text/javascript" src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>
 <script src='https://api.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.js'></script>
 <script src='https://api.mapbox.com/mapbox.js/v3.0.1/mapbox.js'></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script type="text/javascript" src="JS/geojsonHandler.js"></script>
 
 <div id="mapid"></div>
  
@@ -44,6 +47,8 @@
 	}).addTo(map);
 	var popup = L.popup();
 	
+	var trainStationPath = "GeoJSON/trainStation.geojson";
+	
 	function onMapClick(e) {
 	popup
 		.setLatLng(e.latlng)
@@ -56,4 +61,6 @@
 	circle.bindPopup("<b>Heilig Hüsli</b><br>...").openPopup();
 	
 	map.on('click', onMapClick);
+	
+	loadGeojson(map, trainStationPath);
 </script>
