@@ -3,3 +3,8 @@
 	height: 720px;
 	width: 720px;
 }
+
+#latlng {
+	font-family: verdana;
+	text-align: center;
+}

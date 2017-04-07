@@ -21,7 +21,9 @@
 <script type="text/javascript" src="JS/geojsonHandler.js"></script>
 
 <div id="mapid"></div>
- 
+
+<div id="latlng"></div>
+
 <script type="text/javascript">
 	L.mapbox.accessToken = 'pk.eyJ1Ijoic2ZyaXRzY2hpIiwiYSI6ImNqMTZpZHd4ZjAyZHQzMm16OHNmNzF5dHgifQ.mxPUN0DeXnRu85ly5fBq8g';
 	
@@ -48,19 +50,30 @@
 	var popup = L.popup();
 	
 	var trainStationPath = "GeoJSON/trainStation.geojson";
+	var building6Path = "GeoJSON/building6.geojson";
+	
+	var geoJ = getGeojson(building6Path);
+	geoJ.addTo(map);
 	
 	function onClick(e) {
 	map
 		.setView(e.latlng);
 	}
 	
+	function postLatlngOnClick(e) {
+		$('#latlng').html(e.latlng.toString());
+	}
+	
 	marker.bindPopup("<b>Fäschtinseli</b>").openPopup();
 	polygon.bindPopup("<b>Gebäude 8</b>").openPopup();
 	circle.bindPopup("<b>Heilig Hüsli</b><br>...").openPopup();
+	geoJ.bindPopup("<b>Gebäude 6</b>").openPopup();
 	
 	marker.on('click', onClick);
 	polygon.on('click', onClick);
 	circle.on('click', onClick);
+	geoJ.on('click', onClick);
+	map.on('click', postLatlngOnClick);
 	
 	loadGeojson(map, trainStationPath);
 </script>
