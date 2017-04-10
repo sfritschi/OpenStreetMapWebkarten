@@ -1,34 +1,68 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de-de">
 <head>
-<title>Map | Testanwendung</title>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-<meta http-equiv="content-script-type" content="text/javascript" />
-<meta http-equiv="content-style-type" content="text/css" />
-<meta http-equiv="content-language" content="en" />
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
-<link rel="stylesheet" type="text/css" href="map.css"></link>
-<link href='https://api.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.css' rel='stylesheet' />
-<!--[if IE]>
-<link rel="stylesheet" type="text/css" href="ie_map.css"></link>
-<![endif]-->
-<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
-<script src='https://api.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.js'></script>
-<script src='https://api.mapbox.com/mapbox.js/v3.0.1/mapbox.js'></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<title>Map | Testanwendung</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="content-script-type" content="text/javascript" />
+	<meta http-equiv="content-style-type" content="text/css" />
+	<meta http-equiv="content-language" content="en" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+	<link rel="stylesheet" type="text/css" href="map.css"></link>
+	<link href='https://api.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.css' rel='stylesheet' />
+	<!--[if IE]>
+	<link rel="stylesheet" type="text/css" href="ie_map.css"></link>
+	<![endif]-->
+	<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+	<script src='https://api.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.js'></script>
+	<script src='https://api.mapbox.com/mapbox.js/v3.0.1/mapbox.js'></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
-<script type="text/javascript" src="JS/geojsonHandler.js"></script>
-
+	<script type="text/javascript" src="JS/geojsonHandler.js"></script>
+</head>
+<body>
 <div id="mapid"></div>
 
 <div id="latlng"></div>
 
+<map name="HSR">
+	<area shape="rect" coords="0,0,82,126" href="HTML-image/gebaeude6.html" alt="Gebaeude 6">
+</map>
+
 <script type="text/javascript">
-	L.mapbox.accessToken = 'pk.eyJ1Ijoic2ZyaXRzY2hpIiwiYSI6ImNqMTZpZHd4ZjAyZHQzMm16OHNmNzF5dHgifQ.mxPUN0DeXnRu85ly5fBq8g';
+	L.mapbox.accessToken = 'pk.eyJ1Ijoic2ZyaXRzY2hpIiwiYSI6ImNqMWM3bWc0ZzAwNHczM3BhdDY3aGM4NHUifQ.4L6rSyUbvozhhYjbhl8HRg';
+
+	var osmAttributionUrl = "http://www.openstreetmap.org/copyright";
+	var osmAttributionText = "OSM";
+	var mapboxAttributionUrl = "https://www.mapbox.com/about/maps/";
+	var mapboxAttributionText = "MapBox";
 	
-	var map = L.mapbox.map('mapid', 'mapbox.streets')
-		.setView([47.22320, 8.81744], 17);
+	var mapboxUrl = "http://api.tiles.mapbox.com/v4/sfkeller.k0onh2me/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic2ZrZWxsZXIiLCJhIjoia3h4T3pScyJ9.MDLSUwpRpPqaV7SVfGcZDw";
+	var osmUrl = "http://tile.osm.ch/osm-swiss-style/{z}/{x}/{y}.png";
+	
+	var createAttribution = function(mapsrc, mapdesc){
+		return "<a href='http://wiki.openstreetmap.org/wiki/Open_Database_License'>OpenStreetMap</a> contributors | " +
+			"Map data &copy; <a href=" + mapsrc + ">" + mapdesc + "</a> | " +
+			"<a href='http://giswiki.hsr.ch/Webmapping_Clients'>About</a> | " +
+			"<a href='http://www.hsr.ch/geometalab'>By GeometaLab</a>";
+	};
+
+	var osmAttribution = createAttribution(osmAttributionUrl, osmAttributionText);
+	var mapboxAttribution = createAttribution(mapboxAttributionUrl, mapboxAttributionText);
+	
+	var mapboxStreets = L.tileLayer(osmUrl, {id: 'mapid', attribution: mapboxAttribution}),
+		mapboxSatellite = L.tileLayer(mapboxUrl, {id: 'mapid', attribution: mapboxAttribution});
 		
+	var baseMaps = {
+		"Streets": mapboxStreets,
+		"Satellite": mapboxSatellite
+	};
+	
+	var map = L.map('mapid', {
+		center: [47.22320, 8.81744],
+		zoom: 17,
+		layers: [mapboxStreets, mapboxSatellite]
+	});
+	
 	var marker = L.marker([47.22234, 8.81727]).addTo(map);
 	var polygon = L.polygon([
 		[47.22354, 8.81872],
@@ -54,24 +88,25 @@
 	var geoJ = getGeojson(building6Path);
 	geoJ.addTo(map);
 	
-	function onClick(e) {
-	map
-		.setView(e.latlng);
-	}
-	
 	function postLatlngOnMousemove(e) {
 		$('#latlng').html(e.latlng.toString());
 	}
 	
-	marker.bindPopup("<b>Fäschtinseli</b>").openPopup();
-	polygon.bindPopup("<b>Gebäude 8</b>").openPopup();
-	circle.bindPopup("<b>Heilig Hüsli</b><br>...").openPopup();
+	marker.bindPopup("<b>Fäschtinseli</b>");
+	polygon.bindPopup("<b>Gebäude 8</b>");
+	circle.bindPopup("<b>Heilig Hüsli</b><br>...");
 	
-	marker.on('click', onClick);
-	polygon.on('click', onClick);
-	circle.on('click', onClick);
-	geoJ.on('click', onClick);
+	var mapElements = L.layerGroup([marker, polygon, circle, geoJ]);
+	
+	var overlayMaps = {
+		"Map elements": mapElements
+	};
+	
+	L.control.layers(baseMaps, overlayMaps).addTo(map);
+	
 	map.on('mousemove', postLatlngOnMousemove);
 	
 	loadGeojson(map, trainStationPath);
 </script>
+</body>
+</html>
