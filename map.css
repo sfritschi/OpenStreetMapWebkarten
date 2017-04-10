@@ -1,10 +1,21 @@
+body {
+	text-align: center;
+}
+
 #mapid {
+	position: relative;
+	z-index: 50;
 	margin: 0 auto;
 	height: 720px;
 	width: 720px;
+	box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
 }
 
 #latlng {
+	display: block;
 	font-family: verdana;
-	text-align: center;
+	margin: 0 auto;
+    padding-top: 20px;
+    margin: 0;
+    color: #333;
 }
