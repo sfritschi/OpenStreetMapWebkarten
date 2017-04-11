@@ -7,6 +7,8 @@
 	<meta http-equiv="content-style-type" content="text/css" />
 	<meta http-equiv="content-language" content="en" />
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+	<link rel="stylesheet" type="text/css" href="Leaflet.markercluster-1.0.4/dist/MarkerCluster.css"></link>
+	<link rel="stylesheet" type="text/css" href="Leaflet.markercluster-1.0.4/dist/MarkerCluster.Default.css"></link>
 	<link rel="stylesheet" type="text/css" href="map.css"></link>
 	<link href='https://api.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.css' rel='stylesheet' />
 	<!--[if IE]>
@@ -17,6 +19,8 @@
 	<script src='https://api.mapbox.com/mapbox.js/v3.0.1/mapbox.js'></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
+	<script type="text/javascript" src="Leaflet.markercluster-1.0.4/dist/leaflet.markercluster.js"></script>
+	
 	<script type="text/javascript" src="JS/geojsonHandler.js"></script>
 </head>
 <body>
@@ -42,10 +46,10 @@
 	var osmUrl = "http://tile.osm.ch/osm-swiss-style/{z}/{x}/{y}.png";
 	
 	var createAttribution = function(mapsrc, mapdesc){
-		return "<a href='http://wiki.openstreetmap.org/wiki/Open_Database_License'>OpenStreetMap</a> contributors | " +
-			"Map data &copy; <a href=" + mapsrc + ">" + mapdesc + "</a> | " +
-			"<a href='http://giswiki.hsr.ch/Webmapping_Clients'>About</a> | " +
-			"<a href='http://www.hsr.ch/geometalab'>By GeometaLab</a>";
+		return "<a href='http://wiki.openstreetmap.org/wiki/Open_Database_License'>OpenStreetMap</a> contributors | "
+			+ "Map data &copy; <a href=" + mapsrc + ">" + mapdesc + "</a> | "
+			+ "<a href='http://giswiki.hsr.ch/Webmapping_Clients'>About</a> | "
+			+ "<a href='http://www.hsr.ch/geometalab'>By GeometaLab</a>";
 	};
 
 	var osmAttribution = createAttribution(osmAttributionUrl, osmAttributionText);
@@ -83,6 +87,20 @@
 		radius: 20
 	});
 	var popup = L.popup();
+	
+	var markers = new L.markerClusterGroup();
+	
+	for(var i = 1; i <= 10; i++) {
+		var lng = 47.22573 + i / 1000;
+		for(var j = 1; j <= 10; j++) {
+			var lat = 8.81815 + j / 1000;
+			var clusterMarker = L.marker([lng, lat]);
+			
+			markers.addLayer(clusterMarker);
+		}
+	}
+	
+	map.addLayer(markers);
 	
 	var trainStationPath = "GeoJSON/trainStation.geojson";
 	var building6Path = "GeoJSON/building6.geojson";
