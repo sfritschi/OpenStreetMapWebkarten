@@ -14,3 +14,14 @@ var createAttribution = function(mapsrc, mapdesc){
 		+ "<a href='http://giswiki.hsr.ch/Webmapping_Clients'>About</a> | "
 		+ "<a href='http://www.hsr.ch/geometalab'>By GeometaLab</a>";
 };
+
+var mapboxAttribution = createAttribution(mapboxAttributionUrl, mapboxAttributionText),
+	osmAttribution = createAttribution(osmAttributionUrl, osmAttributionText);
+		
+var mapboxSatellite = L.tileLayer(mapboxUrl, {id: 'mapid', attribution: mapboxAttribution}),
+	mapboxStreets = L.tileLayer(osmUrl, {id: 'mapid', attribution: mapboxAttribution});
+		
+var baseMaps = {
+	"Satellite": mapboxSatellite,
+	"Streets": mapboxStreets
+};

@@ -13,7 +13,7 @@ var getGeojson = function(path) {
 	return geoJson;
 }
 
-var castleMarkers = L.markerClusterGroup();
+var castleMarkers;
 
 var loadGeojson = function(filepath, layergroup, icon){
     $.getJSON(filepath, function(data) {
