@@ -24,13 +24,15 @@
 
 <div id="latlng"></div>
 
-<map name="HSR">
+<img src="HTML-image/gebaeude6.png" alt="hsr" usemap="#hsrmap">
+
+<map name="hsrmap">
 	<area shape="rect" coords="0,0,82,126" href="HTML-image/gebaeude6.html" alt="Gebaeude 6">
 </map>
 
 <script type="text/javascript">
 	L.mapbox.accessToken = 'pk.eyJ1Ijoic2ZyaXRzY2hpIiwiYSI6ImNqMWM3bWc0ZzAwNHczM3BhdDY3aGM4NHUifQ.4L6rSyUbvozhhYjbhl8HRg';
-
+	
 	var osmAttributionUrl = "http://www.openstreetmap.org/copyright";
 	var osmAttributionText = "OSM";
 	var mapboxAttributionUrl = "https://www.mapbox.com/about/maps/";
@@ -63,7 +65,7 @@
 		layers: [mapboxStreets, mapboxSatellite]
 	});
 	
-	var marker = L.marker([47.22234, 8.81727]).addTo(map);
+	var marker = L.marker([47.22234, 8.81727]);
 	var polygon = L.polygon([
 		[47.22354, 8.81872],
 		[47.22325, 8.8182],
@@ -73,20 +75,20 @@
 		color: '#dde21a',
 		fillColor: 'yellow',
 		fillOpacity: 0.5
-	}).addTo(map);
+	});
 	var circle = L.circle([47.2225, 8.81481], {
 		color: 'red',
 		fillColor: '#f03',
 		fillOpacity: 0.5,
 		radius: 20
-	}).addTo(map);
+	});
 	var popup = L.popup();
 	
 	var trainStationPath = "GeoJSON/trainStation.geojson";
 	var building6Path = "GeoJSON/building6.geojson";
 	
-	var geoJ = getGeojson(building6Path);
-	geoJ.addTo(map);
+	var geoJTrain = getGeojson(trainStationPath);
+	var geoJB6 = getGeojson(building6Path);
 	
 	function postLatlngOnMousemove(e) {
 		$('#latlng').html(e.latlng.toString());
@@ -95,8 +97,10 @@
 	marker.bindPopup("<b>Fäschtinseli</b>");
 	polygon.bindPopup("<b>Gebäude 8</b>");
 	circle.bindPopup("<b>Heilig Hüsli</b><br>...");
+	geoJTrain.bindPopup("<b>Bahnhof Rapperswil</b>");
+	geoJB6.bindPopup("<b>Gebäude 6</b>");
 	
-	var mapElements = L.layerGroup([marker, polygon, circle, geoJ]);
+	var mapElements = L.layerGroup([marker, polygon, circle, geoJTrain, geoJB6]);
 	
 	var overlayMaps = {
 		"Map elements": mapElements
@@ -105,8 +109,6 @@
 	L.control.layers(baseMaps, overlayMaps).addTo(map);
 	
 	map.on('mousemove', postLatlngOnMousemove);
-	
-	loadGeojson(map, trainStationPath);
 </script>
 </body>
 </html>
