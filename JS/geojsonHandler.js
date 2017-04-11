@@ -15,19 +15,21 @@ var getGeojson = function(path) {
 
 var castleMarkers = L.markerClusterGroup();
 
-var loadGeojson = function(filepath, layergoup, icon){
+var loadGeojson = function(filepath, layergroup, icon){
     $.getJSON(filepath, function(data) {
 		castleMarkers = L.markerClusterGroup();
-        L.geoJson(data, {
-            //go through every element of the json and add it to the layer
+        var jsonCastles = L.geoJson(data, {
+            // go through every element of the json and add it to the layer.
             onEachFeature: function (feature, layer) {
                 layer.bindPopup(feature.properties.name ? feature.properties.name : "Kein Name");
             },
             pointToLayer: function (feature, latlng) {
-				castleMarkers.addLayer(L.marker(latlng, {icon: icon }));
+				return L.marker(latlng, {icon: icon });
             }
         });
-        castleMarkers.addTo(layergoup);
+		// Add generated "jsonCastles" layer to "castleMarkers".
+        jsonCastles.addTo(castleMarkers);
+		castleMarkers.addTo(layergroup);
     });
-    return layergoup;
+    return layergroup;
 };
