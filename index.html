@@ -21,6 +21,7 @@
 
 	<script type="text/javascript" src="Leaflet.markercluster-1.0.4/dist/leaflet.markercluster.js"></script>
 	
+	<script type="text/javascript" src="JS/config.js"></script>
 	<script type="text/javascript" src="JS/geojsonHandler.js"></script>
 </head>
 <body>
@@ -28,45 +29,22 @@
 
 <div id="latlng"></div>
 
-<img src="HTML-image/gebaeude6.png" alt="hsr" usemap="#hsrmap">
-
-<map name="hsrmap">
-	<area shape="rect" coords="0,0,82,126" href="HTML-image/gebaeude6.html" alt="Gebaeude 6">
-</map>
-
 <script type="text/javascript">
-	L.mapbox.accessToken = 'pk.eyJ1Ijoic2ZyaXRzY2hpIiwiYSI6ImNqMWM3bWc0ZzAwNHczM3BhdDY3aGM4NHUifQ.4L6rSyUbvozhhYjbhl8HRg';
+	var mapboxAttribution = createAttribution(mapboxAttributionUrl, mapboxAttributionText),
+		osmAttribution = createAttribution(osmAttributionUrl, osmAttributionText);
 	
-	var osmAttributionUrl = "http://www.openstreetmap.org/copyright";
-	var osmAttributionText = "OSM";
-	var mapboxAttributionUrl = "https://www.mapbox.com/about/maps/";
-	var mapboxAttributionText = "MapBox";
-	
-	var mapboxUrl = "http://api.tiles.mapbox.com/v4/sfkeller.k0onh2me/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic2ZrZWxsZXIiLCJhIjoia3h4T3pScyJ9.MDLSUwpRpPqaV7SVfGcZDw";
-	var osmUrl = "http://tile.osm.ch/osm-swiss-style/{z}/{x}/{y}.png";
-	
-	var createAttribution = function(mapsrc, mapdesc){
-		return "<a href='http://wiki.openstreetmap.org/wiki/Open_Database_License'>OpenStreetMap</a> contributors | "
-			+ "Map data &copy; <a href=" + mapsrc + ">" + mapdesc + "</a> | "
-			+ "<a href='http://giswiki.hsr.ch/Webmapping_Clients'>About</a> | "
-			+ "<a href='http://www.hsr.ch/geometalab'>By GeometaLab</a>";
-	};
-
-	var osmAttribution = createAttribution(osmAttributionUrl, osmAttributionText);
-	var mapboxAttribution = createAttribution(mapboxAttributionUrl, mapboxAttributionText);
-	
-	var mapboxStreets = L.tileLayer(osmUrl, {id: 'mapid', attribution: mapboxAttribution}),
-		mapboxSatellite = L.tileLayer(mapboxUrl, {id: 'mapid', attribution: mapboxAttribution});
+	var mapboxSatellite = L.tileLayer(mapboxUrl, {id: 'mapid', attribution: mapboxAttribution}),
+		mapboxStreets = L.tileLayer(osmUrl, {id: 'mapid', attribution: mapboxAttribution});
 		
 	var baseMaps = {
-		"Streets": mapboxStreets,
-		"Satellite": mapboxSatellite
+		"Satellite": mapboxSatellite,
+		"Streets": mapboxStreets
 	};
 	
 	var map = L.map('mapid', {
 		center: [47.22320, 8.81744],
 		zoom: 17,
-		layers: [mapboxStreets, mapboxSatellite]
+		layers: [mapboxSatellite, mapboxStreets]
 	});
 	
 	var marker = L.marker([47.22234, 8.81727]);
@@ -86,27 +64,21 @@
 		fillOpacity: 0.5,
 		radius: 20
 	});
-	var popup = L.popup();
-	
-	var markers = new L.markerClusterGroup();
-	
-	for(var i = 1; i <= 10; i++) {
-		var lng = 47.22573 + i / 1000;
-		for(var j = 1; j <= 10; j++) {
-			var lat = 8.81815 + j / 1000;
-			var clusterMarker = L.marker([lng, lat]);
-			
-			markers.addLayer(clusterMarker);
-		}
-	}
-	
-	map.addLayer(markers);
 	
 	var trainStationPath = "GeoJSON/trainStation.geojson";
 	var building6Path = "GeoJSON/building6.geojson";
+	var castleJSON = "GeoJSON/castles.geojson";
+	var castleIcon = "img/Castle.png";
 	
 	var geoJTrain = getGeojson(trainStationPath);
 	var geoJB6 = getGeojson(building6Path);
+	
+	 var castles = new L.LayerGroup(),
+		layerIcon = L.icon({
+			iconUrl: castleIcon,
+			iconSize: [18, 18]
+	}),
+	castles = loadGeojson(castleJSON, castles, layerIcon);
 	
 	function postLatlngOnMousemove(e) {
 		$('#latlng').html(e.latlng.toString());
@@ -118,9 +90,11 @@
 	geoJTrain.bindPopup("<b>Bahnhof Rapperswil</b>");
 	geoJB6.bindPopup("<b>Gebäude 6</b>");
 	
-	var mapElements = L.layerGroup([marker, polygon, circle, geoJTrain, geoJB6]);
+	var mapElements = L.layerGroup([marker, polygon, circle, geoJTrain, geoJB6]).addTo(map);
+	castles.addTo(map);
 	
 	var overlayMaps = {
+		"Castles": castles,
 		"Map elements": mapElements
 	};
 	
