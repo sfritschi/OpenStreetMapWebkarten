@@ -13,9 +13,27 @@ var getGeojson = function(path) {
 	return geoJson;
 }
 
+// Übung 3 - geojson castles
+var loadGeojson = function(filepath, layergoup, icon){
+    $.getJSON(filepath, function(data) {
+        var jsoncastles = L.geoJson(data, {
+            //go through every element of the json and add it to the layer
+            onEachFeature: function (feature, layer) {
+                layer.bindPopup(feature.properties.name ? feature.properties.name : "Kein Name");
+            },
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {icon: icon });
+            }
+        });
+        jsoncastles.addTo(layergoup);
+    });
+    return layergoup;
+};
+
+// Übung 4 - geojson castles with leaflet-clusters-plugin
 var castleMarkers;
 
-var loadGeojson = function(filepath, layergroup, icon){
+var loadGeojsonCluster = function(filepath, layergroup, icon){
     $.getJSON(filepath, function(data) {
 		castleMarkers = L.markerClusterGroup();
         var jsonCastles = L.geoJson(data, {

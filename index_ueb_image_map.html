@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+
+<head>
+    <title>QGIS Mittelalter image map</title>
+    <script type="text/javascript">
+        var InfoBox = new Array();
+
+        InfoBox[0] = 'nicht benutzt';
+        InfoBox[1] = '<span style="color:#000000;font-size:18px;">La Spada nella Rocca<\/span><br><br>20.05.17 - 21.05.17<br><br>Auf der Burg Castelgrande, Bellinzona TI<br><br>http://www.laspadanellarocca.ch<br><br><span style="font-size:10px;color:#0D0DFF"><\/span>';
+        InfoBox[2] = '<span style="color:#000000;font-size:18px;">Mittelalterfest Lachen<\/span><br><br>05.05.17 - 07.05.17<br><br>Seestrasse 2, 8853 Lachen SZ<br><br>http://www.comites-feriati.ch<br><br><span style="font-size:10px;color:#0D0DFF"><\/span>';
+        InfoBox[3] = '<span style="color:#000000;font-size:18px;">Ritterspiele mit Mittelaltermarkt und Gaukelei<\/span><br><br>13.05.17 - 14.05.17<br><br>Camping Trin, via Geraglia 2, 7016 Trin Mulin<br><br>http://www.campingtrin.ch<br><br><span style="font-size:10px;color:#0D0DFF"><\/span>';
+        InfoBox[4] = '<span style="color:#000000;font-size:18px;">Mittelalterfest Chuzenhoeheli<\/span><br><br20.05.17<br><br>Zofingen AG<br><br>https://mittelalterfest.ch<br><br><span style="font-size:10px;color:#0D0DFF"><\/span>';
+        InfoBox[5] = '<span style="color:#000000;font-size:18px;">Mittelalterspektakel Hinwil<\/span><br><br>26.05.17 - 28.05.17<br><br>Hinwil ZH<br><br>http://www.turnei.ch<br><br><span style="font-size:10px;color:#0D0DFF"><\/span>';
+        InfoBox[6] = '<span style="color:#000000;font-size:18px;">Mittelalterfest Schloss Laupen  Laupen 1317<\/span><br><br>25.05.17 - 28.05.17<br><brSchloss Laupen  BE<br><br>http://www.schloss.laupen.ch<br><br><span style="font-size:10px;color:#0D0DFF"><\/span>';
+        InfoBox[7] = '<span style="color:#000000;font-size:18px;">Marama Tribe am Mittelaltermarkt Lachen<\/span><br><br>05.05.17<br><br>Lachen<br><br>http://www.mittelalter-kalender.ch/kalender/<br><br><span style="font-size:10px;color:#0D0DFF"><\/span>';
+        InfoBox[8] = '<span style="color:#000000;font-size:18px;">Koenix Album-Release-party<\/span><br><br>13.05.17<br><br>Schmiedestrasse 1 5400 Baden<br><br>http://werkk-baden.ch/<br><br><span style="font-size:10px;color:#0D0DFF"><\/span>';
+        InfoBox[9] = '<span style="color:#000000;font-size:18px;">Seetaler Ritterspiele mit Mittelaltermarkt und Unterhaltung<\/span><br><br>20.05.17<br><br>Hochdorf<br><br>http://www.mittelalter-kalender.ch/kalender/<br><br><span style="font-size:10px;color:#0D0DFF"><\/span>';
+        InfoBox[10] = '<span style="color:#000000;font-size:18px;">Mittelaltermarkt Ritterturniere zu Ulm<\/span><br><br>25.05.17<br><br>Schloßstrasse 38 89079 ULM DE<br><br>http://www.mittelalter-ulm.de<br><br><span style="font-size:10px;color:#0D0DFF"><\/span>';
+        InfoBox[11] = '<span style="color:#000000;font-size:18px;">Mittelaltermarkt Unterthingau<\/span><br><br>27.05.17<br><brMarkt UnterthingauMarktplatz 9 87647 Unterthingau DE<br><br>http://www.unterthingau.de<br><br><span style="font-size:10px;color:#0D0DFF"><\/span>';
+
+        if (document.layers) {
+            navigator.family = "nn4"
+        }
+        if (document.all) {
+            navigator.family = "ie4"
+        }
+        if (window.navigator.userAgent.toLowerCase().match("gecko")) {
+            navigator.family = "gecko"
+        }
+
+        overdiv = "0";
+
+        function BoxAnzeigen(a) {
+            if (!InfoBox[a]) {
+                InfoBox[a] = "Dieses PopUp (#" + a + ") ist nicht korrekt definiert<br>Die Beschreibung fehlt. Ein Array-Element mit dieser Index-Nummer wurde nicht definiert!";
+            }
+
+            Inhalt = InfoBox[a];
+
+            if (navigator.family == "nn4") {
+                document.InfoBox2.document.write(Inhalt);
+                document.InfoBox2.document.close();
+                document.InfoBox2.left = x + 15;
+                document.InfoBox2.top = y - 5;
+            } else if (navigator.family == "ie4") {
+                InfoBox2.innerHTML = Inhalt;
+                InfoBox2.style.pixelLeft = x + 15;
+                InfoBox2.style.pixelTop = y - 5;
+            } else if (navigator.family == "gecko") {
+                document.getElementById("InfoBox2").innerHTML = Inhalt;
+                document.getElementById("InfoBox2").style.left = x + 15;
+                document.getElementById("InfoBox2").style.top = y - 5;
+            }
+        }
+
+        function BoxAusblenden() {
+            if (overdiv == "0") {
+                if (navigator.family == "nn4") {
+                    eval(document.InfoBox2.top = "-1000");
+                } else if (navigator.family == "ie4") {
+                    InfoBox2.innerHTML = "";
+                    InfoBox2.style.pixelTop = y - 1000;
+                } else if (navigator.family == "gecko") {
+                    document.getElementById("InfoBox2").style.top = "-1000";
+                }
+            }
+        }
+
+        // watches mouse position / places infobox2 
+
+        var isNav = (navigator.appName.indexOf("Netscape") != -1);
+
+        function Position(e) {
+            x = (isNav) ? e.pageX : event.clientX + document.body.scrollLeft;
+            y = (isNav) ? e.pageY : event.clientY + document.body.scrollTop;
+        }
+
+        if (isNav) {
+            document.captureEvents(Event.mouseMove);
+        }
+        document.onmousemove = Position;
+    </script>
+    <style type="text/css">
+        #InfoBox2 {
+            background-color: #FFFFFF;
+            /*background:url(bg04-copy.gif) #F9F9F9 bottom right no-repeat;*/
+            width: 350px;
+            padding: 10px;
+            margin: 0px;
+            border: 1px solid #000000;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 11px;
+            line-height: 130%;
+            color: #5F5F5F;
+        }
+    </style>
+</head>
+<body>
+    <div id="InfoBox2" style="position:absolute;visibility:show; left:25px; top:-100px; z-index:+10" onmouseover="overdiv='1';" onmouseout="overdiv='0'; setTimeout('BoxAusblenden()',2000)">Text</div>
+    <br>
+    <br>
+    <map name="mapmap">
+        <area shape="poly" alt="La Spada nella Rocca" onClick="mapOnClick('http://www.campingtrin.ch')" coords="830,926,829,928,829,930,828,932,827,933,825,935,823,935,821,936,820,936,818,936,816,935,814,935,812,933,811,932,810,930,810,928,810,926,810,924,810,922,811,921,812,919,814,918,816,917,818,916,820,916,821,916,823,917,825,918,827,919,828,921,829,922,829,924,830,926" href="javascript:void(0)" onMouseOver="BoxAnzeigen(1)" onMouseOut="BoxAusblenden()">
+        <area shape="poly" onClick="mapOnClick('http://www.comites-feriati.ch')" coords="774,515,774,517,773,519,772,521,771,522,769,524,768,525,766,525,764,525,762,525,760,525,758,524,757,522,755,521,755,519,754,517,754,515,754,513,755,512,755,510,757,508,758,507,760,506,762,506,764,505,766,506,768,506,769,507,771,508,772,510,773,512,774,513,774,515" href="javascript:void(0)" onMouseOver="BoxAnzeigen(2)" onMouseOut="BoxAusblenden()" />
+        <area shape="poly" href="javascript:void(0)" onClick="mapOnClick('http://www.campingtrin.ch')" onMouseOut="BoxAusblenden()" coords="916,663,916,665,915,667,914,669,913,670,911,672,910,672,908,673,906,673,904,673,902,672,900,672,899,670,897,669,897,667,896,665,896,663,896,661,897,659,897,658,899,656,900,655,902,654,904,653,906,653,908,653,910,654,911,655,913,656,914,658,915,659,916,661,916,663" href="javascript:void(0)" onMouseOver="BoxAnzeigen(3)" onMouseOut="BoxAusblenden()" />
+        <area shape="poly" onClick="mapOnClick('https://mittelalterfest.ch')"  coords="519,480,519,482,518,484,517,485,516,487,515,488,513,489,511,490,509,490,507,490,505,489,504,488,502,487,501,485,500,484,499,482,499,480,499,478,500,476,501,474,502,473,504,472,505,471,507,470,509,470,511,470,513,471,515,472,516,473,517,474,518,476,519,478,519,480" alt="Mittelalterfest Chuzenhoeheli 20.05.17 Zofingen AG https://mittelalterfest.ch" href="javascript:void(0)" onMouseOver="BoxAnzeigen(4)" onMouseOut="BoxAusblenden()">
+        <area shape="poly" onClick="mapOnClick('http://www.turnei.ch')"  coords="770,472,770,474,769,475,768,477,767,479,765,480,764,481,762,481,760,482,758,481,756,481,754,480,753,479,752,477,751,475,750,474,750,472,750,470,751,468,752,466,753,465,754,463,756,462,758,462,760,462,762,462,764,462,765,463,767,465,768,466,769,468,770,470,770,472" alt="Mittelalterspektakel Hinwil 26.05.17 - 28.05.17 Hinwil ZH http://www.turnei.ch" href="javascript:void(0)" onMouseOver="BoxAnzeigen(5)" onMouseOut="BoxAusblenden()">
+        <area shape="poly" onClick="mapOnClick('http://www.schloss.laupen.ch')"  coords="322,639,321,641,321,643,320,645,319,646,317,647,315,648,314,649,312,649,310,649,308,648,306,647,305,646,303,645,302,643,302,641,302,639,302,637,302,635,303,633,305,632,306,631,308,630,310,629,312,629,314,629,315,630,317,631,319,632,320,633,321,635,321,637,322,639" alt="Mittelalterfest Schloss Laupen  Laupen 1317 25.05.17 - 28.05.17 Schloss Laupen  BE http://www.schloss.laupen.ch" href="javascript:void(0)" onMouseOver="BoxAnzeigen(6)" onMouseOut="BoxAusblenden()">
+        <area shape="poly" onClick="mapOnClick('http://www.mittelalter-kalender.ch/kalender/')"  coords="774,516,773,518,773,520,772,522,771,523,769,524,767,525,765,526,764,526,762,526,760,525,758,524,756,523,755,522,754,520,754,518,754,516,754,514,754,512,755,511,756,509,758,508,760,507,762,506,764,506,765,506,767,507,769,508,771,509,772,511,773,512,773,514,774,516" alt="Marama Tribe am Mittelaltermarkt Lachen 05.05.17 Lachen http://www.mittelalter-kalender.ch/kalender/" href="javascript:void(0)" onMouseOver="BoxAnzeigen(7)" onMouseOut="BoxAusblenden()">
+        <area shape="poly" onClick="mapOnClick('http://werkk-baden.ch/')"  coords="617,400,617,402,617,404,616,406,615,407,613,408,611,409,609,410,607,410,606,410,604,409,602,408,600,407,599,406,598,404,598,402,597,400,598,398,598,396,599,394,600,393,602,392,604,391,606,390,607,390,609,390,611,391,613,392,615,393,616,394,617,396,617,398,617,400" alt="Koenix Album-Release-party\n13.05.17\nWerkk Kulturlokal Schmiedestrasse 1 5400 Baden\nhttp://werkk-baden.ch/" href="javascript:void(0)" onMouseOver="BoxAnzeigen(8)" onMouseOut="BoxAusblenden()">
+        <area shape="poly" onClick="mapOnClick('http://www.mittelalter-kalender.ch/kalender/')"  coords="616,529,616,531,615,533,614,534,613,536,612,537,610,538,608,539,606,539,604,539,602,538,601,537,599,536,598,534,597,533,596,531,596,529,596,527,597,525,598,523,599,522,601,520,602,520,604,519,606,519,608,519,610,520,612,520,613,522,614,523,615,525,616,527,616,529" alt="Seetaler Ritterspiele mit Mittelaltermarkt und Unterhaltung 20.05.17 Hochdorf http://www.mittelalter-kalender.ch/kalender/" href="javascript:void(0)" onMouseOver="BoxAnzeigen(9)" onMouseOut="BoxAusblenden()">
+        <area shape="poly" onClick="mapOnClick('http://www.mittelalter-ulm.de')"  coords="1077,27,1077,29,1077,31,1076,33,1074,34,1073,36,1071,37,1069,37,1067,37,1065,37,1064,37,1062,36,1060,34,1059,33,1058,31,1058,29,1057,27,1058,25,1058,23,1059,22,1060,20,1062,19,1064,18,1065,17,1067,17,1069,17,1071,18,1073,19,1074,20,1076,22,1077,23,1077,25,1077,27" alt="Mittelaltermarkt Ritterturniere zu Ulm 25.05.17 Mittelalter Markt zu ULMSchloßstrasse 38 89079 ULMDE http://www.mittelalter-ulm.de" href="javascript:void(0)" onMouseOver="BoxAnzeigen(10)" onMouseOut="BoxAusblenden()">
+        <area shape="poly" onClick="mapOnClick('http://www.unterthingau.de')"  coords="1228,265,1228,267,1227,269,1226,271,1225,272,1223,273,1222,274,1220,275,1218,275,1216,275,1214,274,1212,273,1211,272,1209,271,1209,269,1208,267,1208,265,1208,263,1209,261,1209,259,1211,258,1212,257,1214,256,1216,255,1218,255,1220,255,1222,256,1223,257,1225,258,1226,259,1227,261,1228,263,1228,265" alt="Mittelaltermarkt Unterthingau 27.05.17\n Markt Unterthingau Marktplatz 9 87647 Unterthingau DE http://www.unterthingau.de" href="javascript:void(0)" onMouseOver="BoxAnzeigen(11)" onMouseOut="BoxAusblenden()">
+    </map>
+    <img src="HTML-image/imageMap.png" border="1" usemap="#mapmap" alt="html imagemap created with QGIS" />
+</body>
+
+</html>
