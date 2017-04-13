@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Übung 5 - QGIS Mittelalter image map</title>
+    <title>HTML Image Map - Mittelalter-Kalender</title>
     <script type="text/javascript">
         var InfoBox = new Array();
 
@@ -82,6 +82,7 @@
         document.onmousemove = Position;
     </script>
     <style type="text/css">
+        body { font-family: Arial, Helvetica, sans-serif; } 
         #InfoBox2 {
             background-color: #FFFFFF;
             /*background:url(bg04-copy.gif) #F9F9F9 bottom right no-repeat;*/
@@ -98,8 +99,7 @@
 </head>
 <body>
     <div id="InfoBox2" style="position:absolute;visibility:show; left:25px; top:-100px; z-index:+10" onmouseover="overdiv='1';" onmouseout="overdiv='0'; setTimeout('BoxAusblenden()',2000)">Text</div>
-    <br>
-    <br>
+    <p>HTML Image Map - Mittelalter-Kalender</p>
     <map name="mapmap">
         <area shape="poly" alt="La Spada nella Rocca" onClick="mapOnClick('http://www.campingtrin.ch')" coords="830,926,829,928,829,930,828,932,827,933,825,935,823,935,821,936,820,936,818,936,816,935,814,935,812,933,811,932,810,930,810,928,810,926,810,924,810,922,811,921,812,919,814,918,816,917,818,916,820,916,821,916,823,917,825,918,827,919,828,921,829,922,829,924,830,926" href="javascript:void(0)" onMouseOver="BoxAnzeigen(1)" onMouseOut="BoxAusblenden()">
         <area shape="poly" onClick="mapOnClick('http://www.comites-feriati.ch')" coords="774,515,774,517,773,519,772,521,771,522,769,524,768,525,766,525,764,525,762,525,760,525,758,524,757,522,755,521,755,519,754,517,754,515,754,513,755,512,755,510,757,508,758,507,760,506,762,506,764,505,766,506,768,506,769,507,771,508,772,510,773,512,774,513,774,515" href="javascript:void(0)" onMouseOver="BoxAnzeigen(2)" onMouseOut="BoxAusblenden()" />
