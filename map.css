@@ -2,7 +2,7 @@ html {
 	font-family: verdana;
 }
 
-#mapid , #simpleWebmap, #simpleOlWebmap, #geoMap, #castleMap, #clusterMap {
+#mapid , #simpleWebmap, #simpleOlWebmap, #geoMap, #castleMap, #clusterMap, #overpassMap {
 	position: relative;
 	z-index: 50;
 	margin: 0 auto;

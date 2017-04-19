@@ -5,21 +5,27 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script type="text/javascript" src="JS/imageMapResizer.min.js"></script>
     <title>HTML Image Map - Mittelalter-Kalender</title>
+	<style type="text/css">
+		span {
+			color: #000000;
+			font-size: 18px;
+		}
+	</style>
     <script type="text/javascript">
         var InfoBox = [];
 
         InfoBox[0] = 'nicht benutzt';
-        InfoBox[1] = '<span style="color:#000000;font-size:18px;">La Spada nella Rocca<\/span><br><br>20.05.17 - 21.05.17<br><br>Auf der Burg Castelgrande, Bellinzona TI<br><br>http://www.laspadanellarocca.ch<br><br><span style="font-size:10px;color:#0D0DFF"><\/span>';
-        InfoBox[2] = '<span style="color:#000000;font-size:18px;">Mittelalterfest Lachen<\/span><br><br>05.05.17 - 07.05.17<br><br>Seestrasse 2, 8853 Lachen SZ<br><br>http://www.comites-feriati.ch<br><br><span style="font-size:10px;color:#0D0DFF"><\/span>';
-        InfoBox[3] = '<span style="color:#000000;font-size:18px;">Ritterspiele mit Mittelaltermarkt und Gaukelei<\/span><br><br>13.05.17 - 14.05.17<br><br>Camping Trin, via Geraglia 2, 7016 Trin Mulin<br><br>http://www.campingtrin.ch<br><br><span style="font-size:10px;color:#0D0DFF"><\/span>';
-        InfoBox[4] = '<span style="color:#000000;font-size:18px;">Mittelalterfest Chuzenhoeheli<\/span><br><br20.05.17<br><br>Zofingen AG<br><br>https://mittelalterfest.ch<br><br><span style="font-size:10px;color:#0D0DFF"><\/span>';
-        InfoBox[5] = '<span style="color:#000000;font-size:18px;">Mittelalterspektakel Hinwil<\/span><br><br>26.05.17 - 28.05.17<br><br>Hinwil ZH<br><br>http://www.turnei.ch<br><br><span style="font-size:10px;color:#0D0DFF"><\/span>';
-        InfoBox[6] = '<span style="color:#000000;font-size:18px;">Mittelalterfest Schloss Laupen  Laupen 1317<\/span><br><br>25.05.17 - 28.05.17<br><brSchloss Laupen  BE<br><br>http://www.schloss.laupen.ch<br><br><span style="font-size:10px;color:#0D0DFF"><\/span>';
-        InfoBox[7] = '<span style="color:#000000;font-size:18px;">Marama Tribe am Mittelaltermarkt Lachen<\/span><br><br>05.05.17<br><br>Lachen<br><br>http://www.mittelalter-kalender.ch/kalender/<br><br><span style="font-size:10px;color:#0D0DFF"><\/span>';
-        InfoBox[8] = '<span style="color:#000000;font-size:18px;">Koenix Album-Release-party<\/span><br><br>13.05.17<br><br>Schmiedestrasse 1 5400 Baden<br><br>http://werkk-baden.ch/<br><br><span style="font-size:10px;color:#0D0DFF"><\/span>';
-        InfoBox[9] = '<span style="color:#000000;font-size:18px;">Seetaler Ritterspiele mit Mittelaltermarkt und Unterhaltung<\/span><br><br>20.05.17<br><br>Hochdorf<br><br>http://www.mittelalter-kalender.ch/kalender/<br><br><span style="font-size:10px;color:#0D0DFF"><\/span>';
-        InfoBox[10] = '<span style="color:#000000;font-size:18px;">Mittelaltermarkt Ritterturniere zu Ulm<\/span><br><br>25.05.17<br><br>Schloßstrasse 38 89079 ULM DE<br><br>http://www.mittelalter-ulm.de<br><br><span style="font-size:10px;color:#0D0DFF"><\/span>';
-        InfoBox[11] = '<span style="color:#000000;font-size:18px;">Mittelaltermarkt Unterthingau<\/span><br><br>27.05.17<br><brMarkt UnterthingauMarktplatz 9 87647 Unterthingau DE<br><br>http://www.unterthingau.de<br><br><span style="font-size:10px;color:#0D0DFF"><\/span>';
+        InfoBox[1] = '<span>La Spada nella Rocca<\/span><br><br>20.05.17 - 21.05.17<br><br>Auf der Burg Castelgrande, Bellinzona TI<br><br>http://www.laspadanellarocca.ch<br><br>';
+        InfoBox[2] = '<span>Mittelalterfest Lachen<\/span><br><br>05.05.17 - 07.05.17<br><br>Seestrasse 2, 8853 Lachen SZ<br><br>http://www.comites-feriati.ch<br><br>';
+        InfoBox[3] = '<span>Ritterspiele mit Mittelaltermarkt und Gaukelei<\/span><br><br>13.05.17 - 14.05.17<br><br>Camping Trin, via Geraglia 2, 7016 Trin Mulin<br><br>http://www.campingtrin.ch<br><br>';
+        InfoBox[4] = '<span>Mittelalterfest Chuzenhoeheli<\/span><br><br20.05.17<br><br>Zofingen AG<br><br>https://mittelalterfest.ch<br><br>';
+        InfoBox[5] = '<span>Mittelalterspektakel Hinwil<\/span><br><br>26.05.17 - 28.05.17<br><br>Hinwil ZH<br><br>http://www.turnei.ch<br><br>';
+        InfoBox[6] = '<span>Mittelalterfest Schloss Laupen  Laupen 1317<\/span><br><br>25.05.17 - 28.05.17<br><brSchloss Laupen  BE<br><br>http://www.schloss.laupen.ch<br><br>';
+        InfoBox[7] = '<span>Marama Tribe am Mittelaltermarkt Lachen<\/span><br><br>05.05.17<br><br>Lachen<br><br>http://www.mittelalter-kalender.ch/kalender/<br><br>';
+        InfoBox[8] = '<span>Koenix Album-Release-party<\/span><br><br>13.05.17<br><br>Schmiedestrasse 1 5400 Baden<br><br>http://werkk-baden.ch/<br><br>';
+        InfoBox[9] = '<span>Seetaler Ritterspiele mit Mittelaltermarkt und Unterhaltung<\/span><br><br>20.05.17<br><br>Hochdorf<br><br>http://www.mittelalter-kalender.ch/kalender/<br><br>';
+        InfoBox[10] = '<span>Mittelaltermarkt Ritterturniere zu Ulm<\/span><br><br>25.05.17<br><br>Schloßstrasse 38 89079 ULM DE<br><br>http://www.mittelalter-ulm.de<br><br>';
+        InfoBox[11] = '<span>Mittelaltermarkt Unterthingau<\/span><br><br>27.05.17<br><brMarkt UnterthingauMarktplatz 9 87647 Unterthingau DE<br><br>http://www.unterthingau.de<br><br>';
 
         if (document.layers) {
             navigator.family = "nn4"
@@ -97,9 +103,6 @@
             line-height: 130%;
             color: #5F5F5F;
         }
-		img {
-			max-height: 950px;
-		}
     </style>
 </head>
 <body>
