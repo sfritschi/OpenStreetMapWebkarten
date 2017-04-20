@@ -23,7 +23,7 @@
 			<div class="leaflet-control-container">
 				<div class="leaflet-top leaflet-right">
 					<div id="overpass-api-controls" class="leaflet-bar leaflet-control">
-						<input id="query-textfield" value="leisure=playground" size="50">
+						<input id="query-textfield" value="historic=castle" size="50">
 						<input id="query-button" type="button" value="Laden">
 					</div>
 				</div>
@@ -42,6 +42,7 @@
 				var relationQuery = 'relation[' + overpassQuery + '](' + bounds + ');';
 				var query = '?data=[out:xml][timeout:25];(' + nodeQuery + wayQuery + relationQuery + ');out body;>;out skel qt;';
 				var baseUrl = 'http://overpass-api.de/api/interpreter';
+				// overpass ch?
 				var resultUrl = baseUrl + query;
 				return resultUrl;
 			}
@@ -66,16 +67,22 @@
 							return true;
 						},
 						onEachFeature: function (feature, layer) {
-							var popupContent = "";
+							var popupContent = "<table>";
 							var objectUrl = "http://overpass-api.de/api/interpreter?data=[out:json];" + feature.properties.type + "%28" + feature.properties.id + "%29;out;";
 				
 							$.get(objectUrl, function (objectDataAsJson) {
-								popupContent = popupContent + "<dt>@id</dt><dd>" + feature.properties.type + "/" + feature.properties.id + "</dd>";
+								popupContent = popupContent + "<tr><th>@id</th><td>" + feature.properties.type + "/" + feature.properties.id + "</td></tr>";
 								var keys = Object.keys(objectDataAsJson.elements[0].tags);
 								keys.forEach(function (key) {
-									popupContent = popupContent + "<dt>" + key + "</dt><dd>" + objectDataAsJson.elements[0].tags[key] + "</dd>";
+									var elementContent = objectDataAsJson.elements[0].tags[key];
+									if (elementContent.startsWith("http")) {
+										popupContent = popupContent + "<tr><th>" + key + "</th><td>" + "<a href=" + elementContent + ">link</a>" + "</td></tr>";
+									}
+									if (!popupContent.includes(elementContent)) {
+										popupContent = popupContent + "<tr><th>" + key + "</th><td>" + objectDataAsJson.elements[0].tags[key] + "</td></tr>";
+									}
 								});
-								popupContent = popupContent + "</dl>"
+								popupContent = popupContent + "</table>"
 								layer.bindPopup(popupContent);
 							});
 						}
@@ -84,3 +91,4 @@
 			});
 		</script>
 	</body>
+</html>
