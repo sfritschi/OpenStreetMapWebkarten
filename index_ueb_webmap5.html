@@ -18,12 +18,18 @@
 	</head>
 	<body>
 		<p>Webmap &Uuml;bung 5 - Overpass Query</p>
-		<div id="overpassMap">
+		<div id="featureCount">Treffer: </div>
+		<div id="overpassMap"/>
  
 			<div class="leaflet-control-container">
 				<div class="leaflet-top leaflet-right">
 					<div id="overpass-api-controls" class="leaflet-bar leaflet-control">
-						<input id="query-textfield" value="historic=castle" size="50">
+						<select id="queryDrop">
+							<option value="amenity=charging_station">amenity=charging_station</option>
+							<option value="historic=castle">historic=castle</option>
+							<option value="leisure=playground">leisure=playground</option>
+							<option value="natural=peak">natural=peak</option>
+						</select>
 						<input id="query-button" type="button" value="Laden">
 					</div>
 				</div>
@@ -42,14 +48,18 @@
 				var relationQuery = 'relation[' + overpassQuery + '](' + bounds + ');';
 				var query = '?data=[out:xml][timeout:25];(' + nodeQuery + wayQuery + relationQuery + ');out body;>;out skel qt;';
 				var baseUrl = 'http://overpass-api.de/api/interpreter';
-				// overpass ch?
+				// overpass ch
 				var resultUrl = baseUrl + query;
 				return resultUrl;
 			}
 			
 			$('#query-button').click(function() {
-				var $query = $('#query-textfield').val();
+				$('*').css('cursor', 'progress');
+				$('#featureCount').html("Treffer: ");
+				
+				var $query = $('#queryDrop').val();
 				var overpassApiUrl = buildOverpassApiUrl(map, $query);
+				var featureCount = 0;
 				
 				$.get(overpassApiUrl, function(osmDataAsXML) {
 					var geojson = osmtogeojson(osmDataAsXML);
@@ -67,26 +77,25 @@
 							return true;
 						},
 						onEachFeature: function (feature, layer) {
+							featureCount++;
 							var popupContent = "<table>";
-							var objectUrl = "http://overpass-api.de/api/interpreter?data=[out:json];" + feature.properties.type + "%28" + feature.properties.id + "%29;out;";
-				
-							$.get(objectUrl, function (objectDataAsJson) {
-								popupContent = popupContent + "<tr><th>@id</th><td>" + feature.properties.type + "/" + feature.properties.id + "</td></tr>";
-								var keys = Object.keys(objectDataAsJson.elements[0].tags);
-								keys.forEach(function (key) {
-									var elementContent = objectDataAsJson.elements[0].tags[key];
-									if (elementContent.startsWith("http")) {
-										popupContent = popupContent + "<tr><th>" + key + "</th><td>" + "<a href=" + elementContent + ">link</a>" + "</td></tr>";
-									}
-									if (!popupContent.includes(elementContent)) {
-										popupContent = popupContent + "<tr><th>" + key + "</th><td>" + objectDataAsJson.elements[0].tags[key] + "</td></tr>";
-									}
-								});
-								popupContent = popupContent + "</table>"
+							var keys = Object.keys(feature.properties.tags);
+							popupContent = popupContent + "<tr><th>@id</th><td>" + feature.properties.type + "/" + feature.properties.id + "</td></tr>";
+							
+							keys.forEach(function (key) {
+								var elementContent = feature.properties.tags[key];
+								if (elementContent.startsWith("http")) {
+									popupContent = popupContent + "<tr><th>" + key + "</th><td>" + "<a href=" + elementContent + ">link</a>" + "</td></tr>";
+								}
+								if (!popupContent.includes(elementContent)) {
+									popupContent = popupContent + "<tr><th>" + key + "</th><td>" + elementContent + "</td></tr>";
+								}
 								layer.bindPopup(popupContent);
 							});
 						}
 					}).addTo(map);
+					$('#featureCount').append(featureCount);
+					$('*').css('cursor', 'default');
 				});
 			});
 		</script>
