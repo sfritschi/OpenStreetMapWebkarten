@@ -48,7 +48,6 @@
 				var relationQuery = 'relation[' + overpassQuery + '](' + bounds + ');';
 				var query = '?data=[out:xml][timeout:25];(' + nodeQuery + wayQuery + relationQuery + ');out body;>;out skel qt;';
 				var baseUrl = 'http://overpass-api.de/api/interpreter';
-				// overpass ch
 				var resultUrl = baseUrl + query;
 				return resultUrl;
 			}
