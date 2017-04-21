@@ -60,6 +60,8 @@
 				var overpassApiUrl = buildOverpassApiUrl(map, $query);
 				var featureCount = 0;
 				
+				$('*').css('cursor', 'default');
+				
 				$.get(overpassApiUrl, function(osmDataAsXML) {
 					var geojson = osmtogeojson(osmDataAsXML);
 					var layer = L.geoJson(geojson, {
@@ -84,7 +86,7 @@
 							keys.forEach(function (key) {
 								var elementContent = feature.properties.tags[key];
 								if (elementContent.startsWith("http")) {
-									popupContent = popupContent + "<tr><th>" + key + "</th><td>" + "<a href=" + elementContent + ">link</a>" + "</td></tr>";
+									popupContent = popupContent + "<tr><th>" + key + "</th><td>" + "<a href=" + elementContent + ">Link</a>" + "</td></tr>";
 								}
 								if (!popupContent.includes(elementContent)) {
 									popupContent = popupContent + "<tr><th>" + key + "</th><td>" + elementContent + "</td></tr>";
@@ -94,7 +96,6 @@
 						}
 					}).addTo(map);
 					$('#featureCount').append(featureCount);
-					$('*').css('cursor', 'default');
 				});
 			});
 		</script>
