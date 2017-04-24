@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript" src="JS/imageMapResizer.min.js"></script>
+    <title>HTML SVG Map - Mittelalter-Kalender</title>
+</head>
+<body>
+    <div id="InfoBox2"></div>
+    <p>HTML SVG Map - Mittelalter-Kalender</p>
+    <map name="mapmap">
+		<area shape="circle" alt="La Spada nella Rocca" href="javascript:void(0)" onMouseOver="onAreaHover(this)" onClick="BoxAnzeigen(1)" coords="991, 721, 9"/>
+		<area shape="circle" alt="Mittelalterfest Lachen" href="javascript:void(0)" onClick="BoxAnzeigen(2)" coords="937, 245, 9"/>
+		<area shape="circle" alt="Ritterspiele mit Mittelaltermarkt und Gaukelei" href="javascript:void(0)" onClick="BoxAnzeigen(3)" coords="1101, 421, 9"/>
+		<area shape="circle" alt="Mittelalterfest Chuzenhöheli" href="javascript:void(0)" onClick="BoxAnzeigen(4)" coords="642, 196, 9"/>
+		<area shape="circle" alt="Mittelalterspektakel Hinwil" href="javascript:void(0)" onClick="BoxAnzeigen(5)" coords="938, 191, 9"/>
+		<area shape="circle" alt="Mittelalterfest Schloss Laupen" href="javascript:void(0)" onClick="BoxAnzeigen(6)" coords="398, 384, 9"/>
+		<area shape="circle" alt="Könix Album-Release-party" href="javascript:void(0)" onClick="BoxAnzeigen(7)" coords="756, 103, 9"/>
+		<area shape="circle" alt="Seetaler Ritterspiele mit Mittelaltermarkt und Unterhaltung" href="javascript:void(0)" onClick="BoxAnzeigen(8)" coords="752, 260, 9"/>
+    </map>
+	<img id="svgMap" src="HTML-image/imageMapSVG.png" border="1" usemap="#mapmap" alt="svg imagemap created with QGIS" width="65%" height="auto"/>
+    <img id="svgImage" src="HTML-image/imageMap.svg" border="1" usemap="#mapmap" alt="svg imagemap created with QGIS" width="65%" height="auto"/>
+	<style type="text/css">
+		body { 
+			font-family: Arial, Helvetica, sans-serif; 
+		} 
+		
+		img#svgMap {
+			position: absolute;
+		}
+		
+		img#svgImage {
+			position: absolute;
+		}
+		
+        #InfoBox2 {
+			position: absolute;
+			visibility: show; 
+			left: 25px; 
+			top: -100px; 
+			z-index: +10;
+            background-color: #FFFFFF;
+            /*background:url(bg04-copy.gif) #F9F9F9 bottom right no-repeat;*/
+            width: 350px;
+            padding: 10px;
+            margin: 0px;
+            border: 1px solid #000000;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 11px;
+            line-height: 130%;
+            color: #5F5F5F;
+        }
+		
+		#popup {
+			margin: 70px auto;
+			padding: 20px;
+			background: #fff;
+			border-radius: 5px;
+			width: 30%;
+			position: relative;
+			transition: all 5s ease-in-out;
+		}
+
+		span.infoText {
+			color: #000000;
+			font-size: 18px;
+		}
+	</style>
+	<script type="text/javascript">
+		var InfoBox = [
+			['nicht benutzt', ''],
+			['<span class="infoText">La Spada nella Rocca<\/span><br><br>20.05.17 - 21.05.17<br><br>Auf der Burg Castelgrande, Bellinzona TI<br><br>http://www.laspadanellarocca.ch<br><br>', 'http://www.laspadanellarocca.ch'],
+			['<span class="infoText">Mittelalterfest Lachen<\/span><br><br>05.05.17 - 07.05.17<br><br>Seestrasse 2, 8853 Lachen SZ<br><br>http://www.comites-feriati.ch<br><br>', 'http://www.comites-feriati.ch'],
+			['<span class="infoText">Ritterspiele mit Mittelaltermarkt und Gaukelei<\/span><br><br>13.05.17 - 14.05.17<br><br>Camping Trin, via Geraglia 2, 7016 Trin Mulin<br><br>http://www.campingtrin.ch<br><br>', 'http://www.campingtrin.ch'],
+			['<span class="infoText">Mittelalterfest Chuzenhöhli<\/span><br><br20.05.17<br><br>Zofingen AG<br><br>https://mittelalterfest.ch<br><br>', 'https://mittelalterfest.ch'],
+			['<span class="infoText">Mittelalterspektakel Hinwil<\/span><br><br>26.05.17 - 28.05.17<br><br>Hinwil ZH<br><br>http://www.turnei.ch<br><br>', 'http://www.turnei.ch'],
+			['<span class="infoText">Mittelalterfest Schloss Laupen  Laupen 1317<\/span><br><br>25.05.17 - 28.05.17<br><brSchloss Laupen  BE<br><br>http://www.schloss.laupen.ch<br><br>', 'http://www.schloss.laupen.ch'],
+			['<span class="infoText">Könix Album-Release-party<\/span><br><br>13.05.17<br><br>Schmiedestrasse 1 5400 Baden<br><br>http://werkk-baden.ch/<br><br>', 'http://werkk-baden.ch/'],
+			['<span class="infoText">Seetaler Ritterspiele mit Mittelaltermarkt und Unterhaltung<\/span><br><br>20.05.17<br><br>Hochdorf<br><br>http://www.seetalerritterspiele.ch/<br><br>', 'http://www.seetalerritterspiele.ch/']
+		];
+		
+		var titlePopup = ["La Spada nella Rocca",
+						  "Mittelalterfest Lachen",
+						  "Ritterspiele mit Mittelaltermarkt und Gaukelei",
+						  "Mittelalterfest Chuzenhöhli",
+						  "Mittelalterspektakel Hinwil",
+						  "Mittelalterfest Schloss Laupen  Laupen 1317",
+						  "Könix Album-Release-party",
+						  "Seetaler Ritterspiele mit Mittelaltermarkt und Unterhaltung"];
+		
+        if (document.layers) {
+            navigator.family = "nn4"
+        }
+        if (document.all) {
+            navigator.family = "ie4"
+        }
+        if (window.navigator.userAgent.toLowerCase().match("gecko")) {
+            navigator.family = "gecko"
+        }
+
+        overdiv = "0";
+
+        function BoxAnzeigen(a) {
+            if (!InfoBox[a][0]) {
+                InfoBox[a][0] = "Dieses PopUp (#" + a + ") ist nicht korrekt definiert<br>Die Beschreibung fehlt. Ein Array-Element mit dieser Index-Nummer wurde nicht definiert!";
+            }
+
+            var Inhalt = InfoBox[a][0];
+
+            if (navigator.family == "nn4") {
+                document.InfoBox2.document.write(Inhalt);
+                document.InfoBox2.document.close();
+                document.InfoBox2.left = x + 15;
+                document.InfoBox2.top = y - 5;
+            } else if (navigator.family == "ie4") {
+                InfoBox2.innerHTML = Inhalt;
+                InfoBox2.style.pixelLeft = x + 15;
+                InfoBox2.style.pixelTop = y - 5;
+            } else if (navigator.family == "gecko") {
+                document.getElementById("InfoBox2").innerHTML = Inhalt;
+                document.getElementById("InfoBox2").style.left = x + 15;
+                document.getElementById("InfoBox2").style.top = y - 5;
+            }
+        }
+
+        function BoxAusblenden() {
+            if (overdiv == "0") {
+                if (navigator.family == "nn4") {
+                    eval(document.InfoBox2.top = "-1000");
+                } else if (navigator.family == "ie4") {
+                    InfoBox2.innerHTML = "";
+                    InfoBox2.style.pixelTop = y - 1000;
+                } else if (navigator.family == "gecko") {
+                    document.getElementById("InfoBox2").style.top = "-1000";
+                }
+            }
+        }
+
+        // watches mouse position / places infobox2 
+
+        var isNav = (navigator.appName.indexOf("Netscape") != -1);
+
+        function Position(e) {
+            x = (isNav) ? e.pageX : event.clientX + document.body.scrollLeft;
+            y = (isNav) ? e.pageY : event.clientY + document.body.scrollTop;
+        }
+
+        if (isNav) {
+            document.captureEvents(Event.mouseMove);
+        }
+        document.onmousemove = Position;
+		
+		function onAreaHover(element) {
+			var areaId = $('area').index(element);
+			var Inhalt = titlePopup[areaId];
+			
+			if (navigator.family == "nn4") {
+                document.InfoBox2.document.write(Inhalt);
+                document.InfoBox2.document.close();
+                document.InfoBox2.left = x + 15;
+                document.InfoBox2.top = y - 5;
+            } else if (navigator.family == "ie4") {
+                InfoBox2.innerHTML = Inhalt;
+                InfoBox2.style.pixelLeft = x + 15;
+                InfoBox2.style.pixelTop = y - 5;
+            } else if (navigator.family == "gecko") {
+                document.getElementById("InfoBox2").innerHTML = Inhalt;
+                document.getElementById("InfoBox2").style.left = x + 15;
+                document.getElementById("InfoBox2").style.top = y - 5;
+            }
+		}
+		
+		$(document).click(function(event) {
+			if (!$(event.target).closest('area').length) {
+				if ($('#InfoBox2').is(':visible')) {
+					BoxAusblenden();
+				}
+			}
+		});
+		
+		$('map').imageMapResize();
+    </script>
+</body>
+</html>

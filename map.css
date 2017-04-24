@@ -45,11 +45,11 @@ html {
 	padding-top: 20px;
 }
 
-.dropbtn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
+#overpass-api-controls {
+    padding: 5px;
+    background-color: rgb(255, 255, 255);
+}
+
+#overpass-api-controls a {
+    display: inline;
 }

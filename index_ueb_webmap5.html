@@ -46,7 +46,7 @@
 				nodeQuery = 'node[' + overpassQuery + '](' + bounds + ');';
 				var wayQuery = 'way[' + overpassQuery + '](' + bounds + ');';
 				var relationQuery = 'relation[' + overpassQuery + '](' + bounds + ');';
-				var query = '?data=[out:xml][timeout:25];(' + nodeQuery + wayQuery + relationQuery + ');out body;>;out skel qt;';
+				var query = '?data=[out:json][timeout:25];(' + nodeQuery + wayQuery + relationQuery + ');out body geom;';
 				var baseUrl = 'http://overpass-api.de/api/interpreter';
 				var resultUrl = baseUrl + query;
 				return resultUrl;
@@ -62,8 +62,8 @@
 				
 				$('*').css('cursor', 'default');
 				
-				$.get(overpassApiUrl, function(osmDataAsXML) {
-					var geojson = osmtogeojson(osmDataAsXML);
+				$.get(overpassApiUrl, function(osmDataAsJson) {
+					var geojson = osmtogeojson(osmDataAsJson);
 					var layer = L.geoJson(geojson, {
 						style: function (feature) {
 							return {color: "#ff0000"};
