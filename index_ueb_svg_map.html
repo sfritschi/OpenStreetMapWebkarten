@@ -7,7 +7,7 @@
 </head>
 <body>
     <div id="InfoBox2"></div>
-	<div id="tooltip"></div>
+	<div id="tooltip" style="top: -1000px"></div>
     <p>HTML SVG Map - Mittelalter-Kalender</p>
 	<div id="eventmap-container">	
 		<object data="HTML-image/imageMap.svg" type="image/svg+xml" id="eventmap" >
@@ -89,21 +89,21 @@
 	});
 	
 		var InfoBox = [
-			['nicht benutzt', ''],
-            ['<span class="infoText">Könix Album-Release-party<\/span><br><br>13.05.17<br><br>Schmiedestrasse 1 5400 Baden<br><br><a href="http://werkk-baden.ch/">http://werkk-baden.ch/</a><br><br>', 'http://werkk-baden.ch/'],
-            ['<span class="infoText">Mittelalterfest Chuzenhöhli<\/span><br><br20.05.17<br><br>Zofingen AG<br><br><a href="https://mittelalterfest.ch">https://mittelalterfest.ch</a><br><br>', 'https://mittelalterfest.ch'],
-            ['<span class="infoText">Seetaler Ritterspiele mit Mittelaltermarkt und Unterhaltung<\/span><br><br>20.05.17<br><br>Hochdorf<br><br><a href="http://www.seetalerritterspiele.ch/">http://www.seetalerritterspiele.ch/</a><br><br>', 'http://www.seetalerritterspiele.ch/'],
-            ['<span class="infoText">Mittelalterfest Schloss Laupen  Laupen 1317<\/span><br><br>25.05.17 - 28.05.17<br><brSchloss Laupen  BE<br><br><a href="http://www.schloss.laupen.ch">http://www.schloss.laupen.ch</a><br><br>', 'http://www.schloss.laupen.ch'],
-            ['<span class="infoText">Mittelalterfest Lachen<\/span><br><br>05.05.17 - 07.05.17<br><br>Seestrasse 2, 8853 Lachen SZ<br><br><a href="http://www.comites-feriati.ch">http://www.comites-feriati.ch</a><br><br>', 'http://www.comites-feriati.ch'],
-			['<span class="infoText">Ritterspiele mit Mittelaltermarkt und Gaukelei<\/span><br><br>13.05.17 - 14.05.17<br><br>Camping Trin, via Geraglia 2, 7016 Trin Mulin<br><br><a href="http://www.campingtrin.ch">http://www.campingtrin.ch</a><br><br>', 'http://www.campingtrin.ch'],
-			['<span class="infoText">Mittelalterspektakel Hinwil<\/span><br><br>26.05.17 - 28.05.17<br><br>Hinwil ZH<br><br><a href="http://www.turnei.ch">http://www.turnei.ch</a><br><br>', 'http://www.turnei.ch'],
-            ['<span class="infoText">La Spada nella Rocca<\/span><br><br>20.05.17 - 21.05.17<br><br>Auf der Burg Castelgrande, Bellinzona TI<br><br><a href="http://www.laspadanellarocca.ch">http://www.laspadanellarocca.ch</a><br><br>', 'http://www.laspadanellarocca.ch']
+			'nicht benutzt',
+            '<span class="infoText">Könix Album-Release-party<\/span><br><br>13.05.17<br><br>Schmiedestrasse 1 5400 Baden<br><br><a href="http://werkk-baden.ch/">http://werkk-baden.ch/</a><br><br>',
+            '<span class="infoText">Mittelalterfest Chuzenhöhli<\/span><br><br20.05.17<br><br>Zofingen AG<br><br><a href="https://mittelalterfest.ch">https://mittelalterfest.ch</a><br><br>',
+            '<span class="infoText">Seetaler Ritterspiele mit Mittelaltermarkt und Unterhaltung<\/span><br><br>20.05.17<br><br>Hochdorf<br><br><a href="http://www.seetalerritterspiele.ch/">http://www.seetalerritterspiele.ch/</a><br><br>',
+            '<span class="infoText">Mittelalterfest Schloss Laupen  Laupen 1317<\/span><br><br>25.05.17 - 28.05.17<br><brSchloss Laupen  BE<br><br><a href="http://www.schloss.laupen.ch">http://www.schloss.laupen.ch</a><br><br>',
+            '<span class="infoText">Mittelalterfest Lachen<\/span><br><br>05.05.17 - 07.05.17<br><br>Seestrasse 2, 8853 Lachen SZ<br><br><a href="http://www.comites-feriati.ch">http://www.comites-feriati.ch</a><br><br>',
+			'<span class="infoText">Ritterspiele mit Mittelaltermarkt und Gaukelei<\/span><br><br>13.05.17 - 14.05.17<br><br>Camping Trin, via Geraglia 2, 7016 Trin Mulin<br><br><a href="http://www.campingtrin.ch">http://www.campingtrin.ch</a><br><br>',
+			'<span class="infoText">Mittelalterspektakel Hinwil<\/span><br><br>26.05.17 - 28.05.17<br><br>Hinwil ZH<br><br><a href="http://www.turnei.ch">http://www.turnei.ch</a><br><br>',
+            '<span class="infoText">La Spada nella Rocca<\/span><br><br>20.05.17 - 21.05.17<br><br>Auf der Burg Castelgrande, Bellinzona TI<br><br><a href="http://www.laspadanellarocca.ch">http://www.laspadanellarocca.ch</a><br><br>'
         ];
 
         overdiv = "0";
 
         function getEventTitleFromId(id) {
-            var eventElement = InfoBox[id][0];
+            var eventElement = InfoBox[id];
             var startIndex = eventElement.indexOf(">");
             var tmp = eventElement.substring(startIndex + 1);
             var endIndex = tmp.indexOf("<");
@@ -111,11 +111,11 @@
 		}
 
         function BoxAnzeigen(a, mouseEvent) {
-            if (!InfoBox[a][0]) {
-                InfoBox[a][0] = "Dieses PopUp (#" + a + ") ist nicht korrekt definiert<br>Die Beschreibung fehlt. Ein Array-Element mit dieser Index-Nummer wurde nicht definiert!";
+            if (!InfoBox[a]) {
+                InfoBox[a] = "Dieses PopUp (#" + a + ") ist nicht korrekt definiert<br>Die Beschreibung fehlt. Ein Array-Element mit dieser Index-Nummer wurde nicht definiert!";
             }
 
-            var Inhalt = InfoBox[a][0];
+            var Inhalt = InfoBox[a];
             var InfoBox2 = document.getElementById("InfoBox2");
             InfoBox2.innerHTML = Inhalt;
             InfoBox2.style.left = mouseEvent.pageX + 15;
