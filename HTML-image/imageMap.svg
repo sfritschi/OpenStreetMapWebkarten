@@ -1,15 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox = "0 0 1441 987" version = "1.1">
 <!-- svg generated using QGIS www.qgis.org -->
 <g id="OSM Standard" inkscape:groupmode="layer" inkscape:label="OSM Standard">
-<image y="0" x="0" xlink:href="OSM Standard.png" /></g><!-- QGIS extent for clipping, eg in Inkscape -->
+<image y="0" x="0" xlink:href="imageMapSVG.png" /></g><!-- QGIS extent for clipping, eg in Inkscape -->
 <g id="qgisviewbox" inkscape:groupmode="layer" inkscape:label="qgisviewbox" stroke="rgb(255,0,0)" stroke-width="1" fill="none" >
 <path d="M 0,987 L 1441,987 L 1441,0 L 0,0 L 0,987 " />
-<circle cx="756" cy="103" r="9" stroke="black" stroke-width="3" fill="red" />
-<circle cx="642" cy="196" r="9" stroke="black" stroke-width="3" fill="red" />
-<circle cx="752" cy="260" r="9" stroke="black" stroke-width="3" fill="red" />
-<circle cx="398" cy="384" r="9" stroke="black" stroke-width="3" fill="red" />
-<circle cx="938" cy="191" r="9" stroke="black" stroke-width="3" fill="red" />
-<circle cx="937" cy="245" r="9" stroke="black" stroke-width="3" fill="red" />
-<circle cx="1101" cy="421" r="9" stroke="black" stroke-width="3" fill="red" />
-<circle cx="991" cy="721" r="9" stroke="black" stroke-width="3" fill="red" />
-</g></svg>
+	<image class="event-point" data-event-id="1" x="756" y="103" xlink:href="castle-24.png"/>
+	<image class="event-point" data-event-id="2" x="642" y="196" xlink:href="castle-24.png"/><!-- QGIS extent for clipping, eg in Inkscape -->
+	<image class="event-point" data-event-id="3" x="752" y="260" xlink:href="castle-24.png"/>
+	<image class="event-point" data-event-id="4" x="398" y="384" xlink:href="castle-24.png"/>
+	<image class="event-point" data-event-id="5" x="938" y="191" xlink:href="castle-24.png"/>
+	<image class="event-point" data-event-id="6" x="937" y="245" xlink:href="castle-24.png"/>
+	<image class="event-point" data-event-id="7" x="1101" y="421" xlink:href="castle-24.png"/>
+	<image class="event-point" data-event-id="8" x="991" y="721" xlink:href="castle-24.png"/>
+</g>
+</svg>
