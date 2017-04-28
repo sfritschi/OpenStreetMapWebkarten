@@ -10,7 +10,7 @@
 	<div class="title-box"></div>
     <p>HTML SVG Map - Mittelalter-Kalender</p>
 	<div id="eventmap-container">	
-		<object data="HTML-image/imageMap.svg" type="image/svg+xml" id="eventmap" >
+		<object data="svg_image_map/svg_image_map.svg" type="image/svg+xml" id="eventmap" >
 		</object>
 	</div>
 	<style type="text/css">
@@ -145,7 +145,7 @@
             var titleHeightToCenter = titleBox.offsetHeight;
 
 			titleBox.style.left = (centerX - titleWidthToCenter) + "px";
-			titleBox.style.top = (centerY + InfoBox2Height - titleHeightToCenter) + "px";
+			titleBox.style.top = (centerY + InfoBox2Height - titleHeightToCenter - 10) + "px";
 		}
 
         function BoxAusblenden() {
