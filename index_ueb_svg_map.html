@@ -58,18 +58,15 @@
 		}
 
 		.title-box {
-			position: absolute;
+			position: fixed;
 			z-index: +5;
-			background-color: rgba(255,255,255,.75);
-			padding:20px;
-			border:1px solid #ccc;
-			box-shadow: 0 0 3px rgba(0,0,0,.3);
-			-webkit-box-shadow: 0 0 3px rgba(0,0,0,.3);
-			border-radius:3px;
-			-webkit-border-radius:3px;
-			position:absolute;
-			top:5px;
-			left:50px;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 10px;
+			text-align: center;
+			/* background-color: rgba(255,255,255,.75); */
+			padding: 20px;
+			top: 5px;
+			left: 100px;
 		}
 
 		span.infoText {
@@ -86,7 +83,7 @@
                 var bbox = e.target.getBoundingClientRect();
                 var centerX = Math.floor(bbox.width / 2 + bbox.left);
                 var centerY = Math.floor(bbox.height / 2 + bbox.top);
-                BoxAnzeigen(centerX, centerY, Number(e.target.getAttribute("data-event-id")), e);
+                BoxAnzeigen(centerX, centerY, Number(e.target.getAttribute("data-event-id")));
             } else {
                 BoxAusblenden();
 			}
@@ -123,7 +120,7 @@
             return tmp.substring(0, endIndex);
 		}
 
-        function BoxAnzeigen(centerX, centerY, a, mouseEvent) {
+        function BoxAnzeigen(centerX, centerY, a) {
             if (!InfoBox[a]) {
                 InfoBox[a] = "Dieses PopUp (#" + a + ") ist nicht korrekt definiert<br>Die Beschreibung fehlt. Ein Array-Element mit dieser Index-Nummer wurde nicht definiert!";
             }
@@ -140,14 +137,15 @@
         }
 
 		function displayElementText(centerX, centerY, text) {
-            var TitleBox = document.getElementsByClassName("title-box");
+            var TitleBox = document.getElementsByClassName("title-box")[0];
 
-			var titleBox = document.createElement("p");
+			var titleBox = document.createElement("div");
 
 			titleBox.innerHTML = text;
-			titleBox.style.left = centerX + "px";
-			titleBox.style.top = centerY + "px";
-			titleBox.className = "title-box";
+			titleBox.style.left = centerX - 100 + "px";
+			titleBox.style.top = centerY + 100 + "px";
+            titleBox.className = "title-box";
+			TitleBox.appendChild(titleBox);
 		}
 
         function BoxAusblenden() {
