@@ -27,12 +27,10 @@
         #InfoBox2 {
 			position: absolute;
 			visibility: visible;
-			left: 25px;
-			top: -100px;
 			z-index: +10;
             background-color: #FFFFFF;
             /*background:url(bg04-copy.gif) #F9F9F9 bottom right no-repeat;*/
-            width: 350px;
+            width: 250px;
 			height: 114px;
             padding: 10px;
             margin: 0;
@@ -54,24 +52,24 @@
 			width: 0;
 			z-index: 1;
 			bottom: -15px;
-			left: 178px;
+			left: 129px;
 		}
 
 		.title-box {
-			position: fixed;
+			position: absolute;
 			z-index: +5;
 			font-family: Arial, Helvetica, sans-serif;
-			font-size: 10px;
-			text-align: center;
-			/* background-color: rgba(255,255,255,.75); */
-			padding: 20px;
-			top: 5px;
-			left: 100px;
+			font-size: 12px;
+			color: black;
+			text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+			float: left;
+			white-space: nowrap;
 		}
 
 		span.infoText {
 			color: #000000;
-			font-size: 18px;
+			font-weight: bold;
+			font-size: 14px;
 		}
 	</style>
 	<script type="text/javascript">
@@ -82,7 +80,7 @@
             if(e.target.classList.contains("event-point")) {
                 var bbox = e.target.getBoundingClientRect();
                 var centerX = Math.floor(bbox.width / 2 + bbox.left);
-                var centerY = Math.floor(bbox.height / 2 + bbox.top);
+                var centerY = bbox.top - 15;
                 BoxAnzeigen(centerX, centerY, Number(e.target.getAttribute("data-event-id")));
             } else {
                 BoxAusblenden();
@@ -92,14 +90,13 @@
         doc.querySelectorAll(".event-point").forEach(function(e) {
            var bbox = e.getBoundingClientRect();
            var centerX = Math.floor(bbox.width / 2 + bbox.left);
-           var centerY = Math.floor(bbox.height / 2 + bbox.top);
+           var centerY = bbox.top + 10;
            var id = Number(e.getAttribute("data-event-id"));
            displayElementText(centerX, centerY, getEventTitleFromId(id));
 		});
 	});
 	
 		var InfoBox = [
-			'nicht benutzt',
             '<span class="infoText">Könix Album-Release-party<\/span><br><br>13.05.17<br><br>Schmiedestrasse 1 5400 Baden<br><br><a href="http://werkk-baden.ch/">http://werkk-baden.ch/</a><br><br>',
             '<span class="infoText">Mittelalterfest Chuzenhöhli<\/span><br><br20.05.17<br><br>Zofingen AG<br><br><a href="https://mittelalterfest.ch">https://mittelalterfest.ch</a><br><br>',
             '<span class="infoText">Seetaler Ritterspiele mit Mittelaltermarkt und Unterhaltung<\/span><br><br>20.05.17<br><br>Hochdorf<br><br><a href="http://www.seetalerritterspiele.ch/">http://www.seetalerritterspiele.ch/</a><br><br>',
@@ -128,24 +125,31 @@
             var Inhalt = InfoBox[a];
             var InfoBox2 = document.getElementById("InfoBox2");
 
+            var infoBoxRect = InfoBox2.getBoundingClientRect();
+
+            infoBoxRect.left = centerX;
+            infoBoxRect.top = centerY;
+
             var infoWidthToCenter = Math.floor(InfoBox2.offsetWidth / 2);
 			var infoHeightToCenter = Math.floor(InfoBox2.offsetHeight / 2);
 
             InfoBox2.innerHTML = Inhalt;
             InfoBox2.style.left = (centerX - infoWidthToCenter) + "px";
-            InfoBox2.style.top = (centerY - infoHeightToCenter) + "px";
+            InfoBox2.style.top = centerY + "px";
         }
 
 		function displayElementText(centerX, centerY, text) {
             var TitleBox = document.getElementsByClassName("title-box")[0];
 
 			var titleBox = document.createElement("div");
-
-			titleBox.innerHTML = text;
-			titleBox.style.left = centerX - 100 + "px";
-			titleBox.style.top = centerY + 100 + "px";
             titleBox.className = "title-box";
-			TitleBox.appendChild(titleBox);
+            titleBox.innerHTML = text;
+            TitleBox.appendChild(titleBox);
+
+            var infoWidthToCenter = Math.floor(titleBox.offsetWidth / 2);
+
+			titleBox.style.left = (centerX - infoWidthToCenter) + "px";
+			titleBox.style.top = centerY + 100 + "px";
 		}
 
         function BoxAusblenden() {
