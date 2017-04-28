@@ -16,7 +16,7 @@
 	<style type="text/css">
 		#eventmap-container {
 			padding-top: 50px;
-			width: 65%	;
+			width: 65%;
 			height: 100vh;
 		}
 
@@ -62,7 +62,6 @@
 			font-size: 12px;
 			color: black;
 			text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
-			float: left;
 			white-space: nowrap;
 		}
 
@@ -79,8 +78,8 @@
         doc.addEventListener("click", function(e) {
             if(e.target.classList.contains("event-point")) {
                 var bbox = e.target.getBoundingClientRect();
-                var centerX = Math.floor(bbox.width / 2 + bbox.left);
-                var centerY = bbox.top - 15;
+                var centerX = bbox.width / 2 + bbox.left;
+                var centerY = bbox.top - bbox.height - 15;
                 BoxAnzeigen(centerX, centerY, Number(e.target.getAttribute("data-event-id")));
             } else {
                 BoxAusblenden();
@@ -89,8 +88,8 @@
 
         doc.querySelectorAll(".event-point").forEach(function(e) {
            var bbox = e.getBoundingClientRect();
-           var centerX = Math.floor(bbox.width / 2 + bbox.left);
-           var centerY = bbox.top + 10;
+           var centerX = bbox.width / 2 + bbox.left;
+           var centerY = bbox.top;
            var id = Number(e.getAttribute("data-event-id"));
            displayElementText(centerX, centerY, getEventTitleFromId(id));
 		});
@@ -125,13 +124,7 @@
             var Inhalt = InfoBox[a];
             var InfoBox2 = document.getElementById("InfoBox2");
 
-            var infoBoxRect = InfoBox2.getBoundingClientRect();
-
-            infoBoxRect.left = centerX;
-            infoBoxRect.top = centerY;
-
-            var infoWidthToCenter = Math.floor(InfoBox2.offsetWidth / 2);
-			var infoHeightToCenter = Math.floor(InfoBox2.offsetHeight / 2);
+            var infoWidthToCenter = InfoBox2.offsetWidth / 2;
 
             InfoBox2.innerHTML = Inhalt;
             InfoBox2.style.left = (centerX - infoWidthToCenter) + "px";
@@ -141,15 +134,18 @@
 		function displayElementText(centerX, centerY, text) {
             var TitleBox = document.getElementsByClassName("title-box")[0];
 
-			var titleBox = document.createElement("div");
+            var InfoBox2Height = document.getElementById("InfoBox2").offsetHeight;
+
+			var titleBox = document.createElement("title-box");
             titleBox.className = "title-box";
             titleBox.innerHTML = text;
             TitleBox.appendChild(titleBox);
 
-            var infoWidthToCenter = Math.floor(titleBox.offsetWidth / 2);
+            var titleWidthToCenter = titleBox.offsetWidth / 2;
+            var titleHeightToCenter = titleBox.offsetHeight;
 
-			titleBox.style.left = (centerX - infoWidthToCenter) + "px";
-			titleBox.style.top = centerY + 100 + "px";
+			titleBox.style.left = (centerX - titleWidthToCenter) + "px";
+			titleBox.style.top = (centerY + InfoBox2Height - titleHeightToCenter) + "px";
 		}
 
         function BoxAusblenden() {

@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox = "0 0 1441 987" version = "1.1">
 <!-- svg generated using QGIS www.qgis.org -->
 <g id="OSM Standard" inkscape:groupmode="layer" inkscape:label="OSM Standard">
-<image y="0" x="0" xlink:href="imageMapSVG.png" /></g><!-- QGIS extent for clipping, eg in Inkscape -->
+<image y="0" x="0" xlink:href="imageMapSVG.png" /></g>
 <g id="qgisviewbox" inkscape:groupmode="layer" inkscape:label="qgisviewbox" fill="none" >
 <path d="M 0,987 L 1441,987 L 1441,0 L 0,0 L 0,987 " />
 	<image class="event-point" data-event-id="0" x="756" y="103" xlink:href="castle-24.png"/>
